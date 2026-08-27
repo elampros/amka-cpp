@@ -1,6 +1,10 @@
 # amka-cpp
 
 [![CI](https://github.com/elampros/amka-cpp/actions/workflows/ci.yml/badge.svg)](https://github.com/elampros/amka-cpp/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![C++17](https://img.shields.io/badge/C%2B%2B-17%2F20%2F23-blue.svg)](https://en.cppreference.com/w/cpp/17)
+[![Header-only](https://img.shields.io/badge/header--only-yes-green.svg)](include/amka/sin.hpp)
+[![Release](https://img.shields.io/github/v/release/elampros/amka-cpp?include_prereleases&sort=semver)](https://github.com/elampros/amka-cpp/releases)
 
 Validation and parsing of the **Greek Social Insurance Number** (ΑΜΚΑ — Αριθμός Μητρώου Κοινωνικής Ασφάλισης), for C++.
 
