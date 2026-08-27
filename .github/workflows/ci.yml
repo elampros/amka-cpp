@@ -1,4 +1,4 @@
-name: CI
+﻿name: CI
 
 on:
   push:
@@ -29,7 +29,9 @@ jobs:
           - os: ubuntu-latest
             name: Linux GCC
             std: 17
-            build_type: Debug    steps:
+            build_type: Debug
+
+    steps:
       - uses: actions/checkout@v4
 
       - name: Configure
