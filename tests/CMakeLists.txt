@@ -25,6 +25,15 @@ add_test(NAME amka.compile_time COMMAND amka_compile_time_tests)
 include(FetchContent)
 FetchContent_Declare(Catch2
     URL https://github.com/catchorg/Catch2/archive/refs/tags/v3.11.0.tar.gz)
+
+# Catch2 must be built with the same C++ standard as the tests: templates like
+# Catch::StringMaker<std::string_view> exist in the compiled library only when
+# Catch2 itself sees C++17+. Otherwise the link fails (e.g. AppleClang, whose
+# default dialect predates C++17).
+set(CMAKE_CXX_STANDARD ${AMKA_TEST_CXX_STANDARD})
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
 FetchContent_MakeAvailable(Catch2)
 
 add_executable(amka_runtime_tests runtime_tests.cpp generator_tests.cpp)
