@@ -1,8 +1,11 @@
-# Pin the dialect hard: prove the library is clean C++17 — no GNU extensions,
-# no accidental C++20-isms (e.g. constexpr std::array comparisons).
+# Pin the dialect hard: default is C++17 — no GNU extensions, no accidental
+# C++20-isms (e.g. constexpr std::array comparisons). CI overrides the standard
+# to prove the library also builds cleanly under C++20/23.
+set(AMKA_TEST_CXX_STANDARD 17 CACHE STRING "C++ standard used to build the amka tests")
+
 function(amka_pin_cxx17 target)
     set_target_properties(${target} PROPERTIES
-        CXX_STANDARD 17
+        CXX_STANDARD ${AMKA_TEST_CXX_STANDARD}
         CXX_STANDARD_REQUIRED ON
         CXX_EXTENSIONS OFF)
     if(MSVC)

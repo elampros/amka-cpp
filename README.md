@@ -1,5 +1,7 @@
 # amka-cpp
 
+[![CI](https://github.com/elampros/amka-cpp/actions/workflows/ci.yml/badge.svg)](https://github.com/elampros/amka-cpp/actions/workflows/ci.yml)
+
 Validation and parsing of the **Greek Social Insurance Number** (ΑΜΚΑ — Αριθμός Μητρώου Κοινωνικής Ασφάλισης), for C++.
 
 Header-only. C++17. Zero dependencies. Everything `constexpr`.
@@ -122,12 +124,12 @@ cmake --build build
 ctest --test-dir build
 ```
 
-Tests are pinned to `-std=c++17` with extensions off, so any accidental C++20-ism (say, a `constexpr` `std::array` comparison) fails loudly instead of silently raising the floor.
+Tests default to `-std=c++17` with extensions off, so any accidental C++20-ism (say, a `constexpr` `std::array` comparison) fails loudly instead of silently raising the floor. CI additionally builds them under C++20 and C++23 (`-DAMKA_TEST_CXX_STANDARD=20|23`) across GCC, Clang, and MSVC.
 
 ## Roadmap
 
 * **v0.2** — ✅ shipped: `<amka/testing.hpp>`, the deterministic synthetic-AMKA generator described above.
-* **v0.3** — CI matrix (GCC/Clang/MSVC × C++17/20/23), install rules + `find_package` config, possibly a portable integer distribution for cross-stdlib reproducibility.
+* **v0.3** — ✅ CI matrix (GCC/Clang/MSVC × C++17/20/23); still open: install rules + `find_package` config, possibly a portable integer distribution for cross-stdlib reproducibility.
 
 ## License
 
