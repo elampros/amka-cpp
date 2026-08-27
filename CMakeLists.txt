@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.14)
 
 project(amka
-    VERSION 0.2.0
+    VERSION 0.4.0
     DESCRIPTION "Validation and parsing of the Greek Social Insurance Number (AMKA)"
     LANGUAGES CXX)
 

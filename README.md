@@ -109,7 +109,7 @@ target_link_libraries(your_target PRIVATE amka::amka)
 
 # or via FetchContent
 include(FetchContent)
-FetchContent_Declare(amka GIT_REPOSITORY https://github.com/elampros/amka-cpp.git GIT_TAG v0.2.0)
+FetchContent_Declare(amka GIT_REPOSITORY https://github.com/elampros/amka-cpp.git GIT_TAG v0.4.0)
 FetchContent_MakeAvailable(amka)
 target_link_libraries(your_target PRIVATE amka::amka)
 ```
@@ -129,11 +129,6 @@ ctest --test-dir build
 ```
 
 Tests default to `-std=c++17` with extensions off, so any accidental C++20-ism (say, a `constexpr` `std::array` comparison) fails loudly instead of silently raising the floor. CI additionally builds them under C++20 and C++23 (`-DAMKA_TEST_CXX_STANDARD=20|23`) across GCC, Clang, and MSVC.
-
-## Roadmap
-
-* **v0.2** — ✅ shipped: `<amka/testing.hpp>`, the deterministic synthetic-AMKA generator described above.
-* **v0.3** — ✅ CI matrix (GCC/Clang/MSVC × C++17/20/23); still open: install rules + `find_package` config, possibly a portable integer distribution for cross-stdlib reproducibility.
 
 ## License
 
