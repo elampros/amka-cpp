@@ -38,10 +38,10 @@ jobs:
         run: >
           cmake -S . -B build
           -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
-          -DAMKA_TEST_CXX_STANDARD=${{ matrix.std }}
+          -DAMKA_TEST_CXX_STANDARD=${{ matrix.std }}      - name: Build
+        run: cmake --build build --config ${{ matrix.build_type }} --parallel
 
-      - name: Build
-        run: cmake --build build --config ${{ matrix.build_type }} --parallel      - name: Test
+      - name: Test
         run: ctest --test-dir build --build-config ${{ matrix.build_type }} --output-on-failure
 
   install-and-consume:
