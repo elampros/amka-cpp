@@ -29,16 +29,16 @@ jobs:
           - os: ubuntu-latest
             name: Linux GCC
             std: 17
-            build_type: Debug
-
-    steps:
+            build_type: Debug    steps:
       - uses: actions/checkout@v4
 
       - name: Configure
         run: >
           cmake -S . -B build
           -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
-          -DAMKA_TEST_CXX_STANDARD=${{ matrix.std }}      - name: Build
+          -DAMKA_TEST_CXX_STANDARD=${{ matrix.std }}
+
+      - name: Build
         run: cmake --build build --config ${{ matrix.build_type }} --parallel
 
       - name: Test
