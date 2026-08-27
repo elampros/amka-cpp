@@ -112,7 +112,13 @@ include(FetchContent)
 FetchContent_Declare(amka GIT_REPOSITORY https://github.com/elampros/amka-cpp.git GIT_TAG v0.4.0)
 FetchContent_MakeAvailable(amka)
 target_link_libraries(your_target PRIVATE amka::amka)
+
+# or install system-wide (cmake --install build --prefix ...) and then
+find_package(amka 0.4 REQUIRED)
+target_link_libraries(your_target PRIVATE amka::amka)
 ```
+
+The install rules ship the headers plus a CMake package config (`amkaConfig.cmake` + version file, `SameMajorVersion`, architecture-independent), verified in CI on all three OSes by building a standalone consumer against a staged prefix.
 
 ## Testing
 

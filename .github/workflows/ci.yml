@@ -41,7 +41,28 @@ jobs:
           -DAMKA_TEST_CXX_STANDARD=${{ matrix.std }}
 
       - name: Build
-        run: cmake --build build --config ${{ matrix.build_type }} --parallel
-
-      - name: Test
+        run: cmake --build build --config ${{ matrix.build_type }} --parallel      - name: Test
         run: ctest --test-dir build --build-config ${{ matrix.build_type }} --output-on-failure
+
+  install-and-consume:
+    name: find_package smoke / ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install amka to a staging prefix
+        run: >
+          cmake -S . -B build -DAMKA_BUILD_TESTS=OFF -DAMKA_BUILD_EXAMPLES=OFF
+          && cmake --install build --prefix ${{ runner.temp }}/amka-prefix
+
+      - name: Build & run the consumer via find_package
+        run: >
+          cmake -S tests/consumer -B build-consumer
+          -DCMAKE_PREFIX_PATH=${{ runner.temp }}/amka-prefix
+          && cmake --build build-consumer --config Release
+          && ctest --test-dir build-consumer --build-config Release --output-on-failure

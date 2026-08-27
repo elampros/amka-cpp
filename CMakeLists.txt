@@ -25,6 +25,7 @@ endif()
 
 option(AMKA_BUILD_TESTS    "Build amka tests"    ${AMKA_IS_TOP_LEVEL})
 option(AMKA_BUILD_EXAMPLES "Build amka examples" ${AMKA_IS_TOP_LEVEL})
+option(AMKA_INSTALL        "Generate amka install rules" ${AMKA_IS_TOP_LEVEL})
 
 if(AMKA_BUILD_TESTS)
     enable_testing()
@@ -33,4 +34,39 @@ endif()
 
 if(AMKA_BUILD_EXAMPLES)
     add_subdirectory(examples)
+endif()
+
+# ---- Install & find_package support ------------------------------------------
+if(AMKA_INSTALL)
+    include(GNUInstallDirs)
+    include(CMakePackageConfigHelpers)
+
+    install(DIRECTORY include/amka
+        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+
+    install(TARGETS amka EXPORT amkaTargets)
+
+    install(EXPORT amkaTargets
+        NAMESPACE amka::
+        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/amka)
+
+    configure_package_config_file(
+        cmake/amkaConfig.cmake.in
+        ${CMAKE_CURRENT_BINARY_DIR}/amkaConfig.cmake
+        INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/amka)
+
+    # Header-only => ABI-independent: any architecture may consume it.
+    write_basic_package_version_file(
+        ${CMAKE_CURRENT_BINARY_DIR}/amkaConfigVersion.cmake
+        VERSION ${PROJECT_VERSION}
+        COMPATIBILITY SameMajorVersion
+        ARCH_INDEPENDENT)
+
+    install(FILES
+        ${CMAKE_CURRENT_BINARY_DIR}/amkaConfig.cmake
+        ${CMAKE_CURRENT_BINARY_DIR}/amkaConfigVersion.cmake
+        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/amka)
+
+    install(FILES LICENSE
+        DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/licenses/amka)
 endif()
