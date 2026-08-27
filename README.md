@@ -109,12 +109,12 @@ target_link_libraries(your_target PRIVATE amka::amka)
 
 # or via FetchContent
 include(FetchContent)
-FetchContent_Declare(amka GIT_REPOSITORY https://github.com/elampros/amka-cpp.git GIT_TAG v0.4.0)
+FetchContent_Declare(amka GIT_REPOSITORY https://github.com/elampros/amka-cpp.git GIT_TAG v0.5.0)
 FetchContent_MakeAvailable(amka)
 target_link_libraries(your_target PRIVATE amka::amka)
 
 # or install system-wide (cmake --install build --prefix ...) and then
-find_package(amka 0.4 REQUIRED)
+find_package(amka 0.5 REQUIRED)
 target_link_libraries(your_target PRIVATE amka::amka)
 ```
 
